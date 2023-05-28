@@ -12,14 +12,8 @@ public class StateBarController : Singleton<StateBarController>
     List<Transform> objectTransform = new List<Transform>();
 
     Camera cam;
-    // Start is called before the first frame update
-
     public void HPbarTextChange(int value)
     {
-        /*if(HPBar.GetComponentInChildren<GameObject>().GetComponentInChildren<GameObject>().GetComponentInChildren<GameObject>().TryGetComponent<TextMeshProUGUI>(out TextMeshProUGUI hpText))
-        {
-            hpText.text = value.ToString();
-        }*/
         if(HPBar.transform.GetChild(0).GetChild(0).GetChild(0).TryGetComponent<TextMeshProUGUI>(out TextMeshProUGUI text))
         {
             text.text = value.ToString();
@@ -35,13 +29,6 @@ public class StateBarController : Singleton<StateBarController>
     }
     public void HPbarTextChange(int index, int damage)
     {
-        //Debug.Log("µ•πÃ¡ˆ: " + damage);
-        //Debug.Log(GameObject.FindGameObjectWithTag("UI").transform.GetChild(index + 3).GetChild(0).GetChild(0));
-        /*if(GameObject.FindGameObjectWithTag("UI").transform.GetChild(index+3).GetChild(0).GetChild(0).GetChild(0).TryGetComponent<TextMeshProUGUI>(out TextMeshProUGUI text))
-        {
-            Debug.Log("µ•πÃ¡ˆ: " + damage);
-            text.text = (int.Parse(text.text) - damage).ToString();
-        }*/
 
         if(GameObject.Find("BattleManager").transform.GetChild(index).TryGetComponent<MonsterBase>(out MonsterBase monsterBase))
         {
@@ -52,7 +39,7 @@ public class StateBarController : Singleton<StateBarController>
         {
             if (hpImg.gameObject.transform.GetChild(0).GetChild(0).TryGetComponent<TextMeshProUGUI>(out TextMeshProUGUI text))
             {
-                Debug.Log("µ•πÃ¡ˆ: " + damage);
+                Debug.Log("Îç∞ÎØ∏ÏßÄ: " + damage);
                 hpImg.fillAmount = (float.Parse(text.text) - damage) / (float.Parse(text.text) / hpImg.fillAmount);
                 text.text = (float.Parse(text.text) - damage).ToString();
                                                           
@@ -65,10 +52,10 @@ public class StateBarController : Singleton<StateBarController>
     {
         cam = Camera.main;
 
-        GameObject[] EnemyList = GameObject.FindGameObjectsWithTag("Enemy");    //º“»Øµ» ∏ÛΩ∫≈Õ
+        GameObject[] EnemyList = GameObject.FindGameObjectsWithTag("Enemy");    //ÏÜåÌôòÎêú Î™¨Ïä§ÌÑ∞
         for (int i = 0; i < EnemyList.Length; i++)
         {
-            objectTransform.Add(EnemyList[i].transform);                        //º“»Øµ» ∏ÛΩ∫≈Õ ¿ßƒ°∏¶ ∏ÆΩ∫∆Æ∑Œ ¿˙¿Â
+            objectTransform.Add(EnemyList[i].transform);                        //ÏÜåÌôòÎêú Î™¨Ïä§ÌÑ∞ ÏúÑÏπòÎ•º Î¶¨Ïä§Ìä∏Î°ú Ï†ÄÏû•
 
             if (EnemyList[i].TryGetComponent<MonsterBase>(out MonsterBase monster))
             {
@@ -76,8 +63,8 @@ public class StateBarController : Singleton<StateBarController>
                 MPbarTextChange(monster.monsterData.MonsterMP);
             }
 
-            GameObject monsterHPbar = Instantiate(HPBar, EnemyList[i].transform.position, Quaternion.identity, transform);   //HPπŸ∏¶ ∏ÛΩ∫≈Õ ¿ßƒ°ø° ª˝º∫
-            objectList.Add(monsterHPbar);    //ª˝º∫µ» HPπŸ∏¶ ∏ÆΩ∫∆Æ∑Œ ¿˙¿Â
+            GameObject monsterHPbar = Instantiate(HPBar, EnemyList[i].transform.position, Quaternion.identity, transform);   //HPÎ∞îÎ•º Î™¨Ïä§ÌÑ∞ ÏúÑÏπòÏóê ÏÉùÏÑ±
+            objectList.Add(monsterHPbar);    //ÏÉùÏÑ±Îêú HPÎ∞îÎ•º Î¶¨Ïä§Ìä∏Î°ú Ï†ÄÏû•
             objectList[i].transform.position = cam.WorldToScreenPoint(objectTransform[i].position + new Vector3(0f, -0.6f, 0f));
 
             
@@ -88,9 +75,6 @@ public class StateBarController : Singleton<StateBarController>
 
         if(BattleController.Instance.player.TryGetComponent<PlayerBase>(out PlayerBase playerbase))
         {
-            //PlayerHPBarTextInit(playerbase.playerData.PlayerHP);
-            //PlayerMPBarTextInit(playerbase.playerData.PlayerMP);
-
             PlayerHPBarTextInit(GameManager.playerData.PlayerCurrentHP);
             PlayerMPBarTextInit(GameManager.playerData.PlayerCurrentMP);
             PlayerHPBarImgInit();
@@ -104,25 +88,6 @@ public class StateBarController : Singleton<StateBarController>
 
         SetMonsterStateActiveTrue();
 
-        /*switch (objectList.Count)
-        {
-            case 1:
-                objectList[0].transform.position += new Vector3(0f, -0.5f, 0f); //ª˝º∫µ» HPπŸ¥¬ ∏ÛΩ∫≈Õ¿« ¿ßƒ°¿Ãπ«∑Œ ∏ÛΩ∫≈Õ¿« æ∆∑°ø° ¿ßƒ°«œµµ∑œ ¿ßƒ°∞™ ¥ŸΩ√ ∞ËªÍ
-                break;
-            case 2:
-                for(int i = 0; i < 2; i++)
-                {
-                    objectList[i].transform.position += new Vector3(0f, -0.5f, 0f); //new Vector3(410f + 280 * i, -430f);
-                }
-                break;
-            default:
-                for (int i = 0; i < 3; i++)
-                {
-                    objectList[i].transform.position += new Vector3(0f, -0.5f, 0f);//new Vector3(270f + 280 * i, -430f);
-                }
-                break;
-
-        }*/
     }
     
     public void SetMonsterStateActiveFalse()
@@ -168,7 +133,6 @@ public class StateBarController : Singleton<StateBarController>
             {
                 hpImg.fillAmount = (float.Parse(text.text) - damage) / (float.Parse(text.text) / hpImg.fillAmount);
                 text.text = (float.Parse(text.text) - damage).ToString();
-                //text.text = damage.ToString();
 
 
             }
