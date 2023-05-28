@@ -9,30 +9,28 @@ using System.IO;
 
 public class LobbyManager : MonoBehaviour
 {
-    //°ÔÀÓ ÀüÃ¼ÀûÀ¸·Î »ç¿ëÇÏ´Â ¹è°æÀ½¾Ç ¸®½ºÆ®
+    //ê²Œì„ ì „ì²´ì ìœ¼ë¡œ ì‚¬ìš©í•˜ëŠ” ë°°ê²½ìŒì•… ë¦¬ìŠ¤íŠ¸
     [SerializeField] List<AudioSource> audioList;
 
-    //¹è°æÀ½¾ÇÀÇ ¼Ò¸® Å©±â °ü·Ã
+    //ë°°ê²½ìŒì•…ì˜ ì†Œë¦¬ í¬ê¸° ê´€ë ¨
     [SerializeField] Slider bgmSlider;
     [SerializeField] TextMeshProUGUI bgmValueText;
 
-    //¿É¼ÇÆË¾÷ active °ü·Ã
+    //ì˜µì…˜íŒì—… active ê´€ë ¨
     [SerializeField] Image optionPopup;
     private bool optionPopupIsActive;
 
-    //°èÁ¤ »ı¼º °ü·Ã
+    //ê³„ì • ìƒì„± ê´€ë ¨
     [SerializeField] TMP_InputField accountName;
     [SerializeField] Image accountImg;
 
-    //ÃÊ¿ù¼®
+    //ì´ˆì›”ì„
     [SerializeField] TextMeshProUGUI reinforceStoneText;
 
     private void Awake()
     {
         CheckAccount();
-        //optionPopupIsActive = false;
         audioList[0].Play();
-        //audioList[0].volume = 0.01f;
         audioList[0].volume = 0.05f;
 
         GameManager.Instance.TimeReset();
@@ -59,12 +57,6 @@ public class LobbyManager : MonoBehaviour
 
     public void CheckAccount()
     {
-        /*if(File.Exists(Application.persistentDataPath + "/playerData.json")){
-            GameManager.PlayerDataLoad();
-        } else
-        {
-            accountImg.gameObject.SetActive(true);
-        }*/
         if (!File.Exists(Application.persistentDataPath + "/playerAccountData.json"))
         {
             accountImg.gameObject.SetActive(true);
@@ -90,22 +82,7 @@ public class LobbyManager : MonoBehaviour
         playerAccountData.PlayerLuck += RandomManager.ApplyFixedRatioValue(2);
 
         File.WriteAllText(Application.persistentDataPath + "/playerAccountData.json", JsonUtility.ToJson(playerAccountData));
-        /*GameManager.playerData.PlayerHP += RandomManager.ApplyFixedRatioValue(10);
-        GameManager.playerData.PlayerCurrentHP = GameManager.playerData.PlayerHP;
-        GameManager.playerData.PlayerMP += RandomManager.ApplyFixedRatioValue(10);
-        GameManager.playerData.PlayerCurrentMP = GameManager.playerData.PlayerMP;
-        GameManager.playerData.PlayerAD += RandomManager.ApplyFixedRatioValue(2);
-        GameManager.playerData.PlayerAP += RandomManager.ApplyFixedRatioValue(2);
-        GameManager.playerData.PlayerDefensive_AD += RandomManager.ApplyFixedRatioValue(2);
-        GameManager.playerData.PlayerDefensive_AP += RandomManager.ApplyFixedRatioValue(2);
-        GameManager.playerData.PlayerStrength += RandomManager.ApplyFixedRatioValue(2);
-        GameManager.playerData.PlayerAgility += RandomManager.ApplyFixedRatioValue(2);
-        GameManager.playerData.PlayerMagicPower += RandomManager.ApplyFixedRatioValue(2);
-        GameManager.playerData.PlayerLuck += RandomManager.ApplyFixedRatioValue(2);*/
 
-        //GameManager.PlayerDataSave();
-
-        //LoadVillageScene();
         accountImg.gameObject.SetActive(false);
     }
 
