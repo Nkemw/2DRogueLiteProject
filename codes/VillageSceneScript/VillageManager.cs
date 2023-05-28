@@ -18,10 +18,9 @@ public class VillageManager : Singleton<VillageManager>
     private void Awake()
     {
         base.Awake();
-        Debug.Log("ºô¸®Áö Awake");
+        Debug.Log("ë¹Œë¦¬ì§€ Awake");
         LoadVillageData();
 
-        //Time.timeScale = 10f;
     }
 
     private void Update()
@@ -46,23 +45,11 @@ public class VillageManager : Singleton<VillageManager>
 
     }
 
-    //public GameManager gameManager;
     public void LoadLobbyScene()
     {
         Destroy(GameManager.Instance);
         SceneManager.LoadScene("LobbyScene");
     }
-
-    /*private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-    {
-        // MySingleton °´Ã¼ÀÇ »óÅÂ¸¦ ÃÊ±âÈ­ÇÔ
-        //
-    
-    
-    
-    .ResetState();
-        Debug.Log("asddddddddddddddddd");
-    }*/
 
     #region playerInfo
     [SerializeField] Image playerInfoImg;
