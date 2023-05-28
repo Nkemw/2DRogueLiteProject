@@ -19,18 +19,14 @@ public class PlayerReward : MonoBehaviour
     [SerializeField] Image itemImg;
     [SerializeField] GameObject content;
 
-    //Dictionary<string, int> items;
-    //ItemInfo[] cleanedItems;
     List<ItemInfo> cleanedItems = new List<ItemInfo>();
     List<Image> initImgs = new List<Image>();
 
-    //Dictionary<string, int> aa;
     private void Start()
     {
         gameObject.transform.SetAsLastSibling();
         
         for (int i = 0; i < BattleController.Instance.getItems.Count; i++) {
-            //int temp = BattleController.Instance.getItems.FindIndex(BattleController)
             if(cleanedItems.Count == 0)
             {
                 cleanedItems.Add(new ItemInfo(BattleController.Instance.getItems[i], 1));
@@ -40,14 +36,14 @@ public class PlayerReward : MonoBehaviour
                 {
                     ItemInfo temp = new ItemInfo(BattleController.Instance.getItems[i], 1);
 
-                    //¹Ş¾Æ¿Â Á¤º¸ÀÇ ÀÌ¹ÌÁö°¡ ÇöÀç ÀúÀåµÈ ÀÌ¹ÌÁö Áß¿¡ °°Àº °æ¿ì
+                    //ë°›ì•„ì˜¨ ì •ë³´ì˜ ì´ë¯¸ì§€ê°€ í˜„ì¬ ì €ì¥ëœ ì´ë¯¸ì§€ ì¤‘ì— ê°™ì€ ê²½ìš°
                     if (cleanedItems[j].itemPath.Equals(temp.itemPath))
                     {
                         cleanedItems[j].itemAmount++;
                         break;
                     }
 
-                    //¹Ş¾Æ¿Â Á¤º¸ÀÇ ÀÌ¹ÌÁö°¡ ÇöÀç ÀúÀåµÈ ÀÌ¹ÌÁö¿Í ¸ğµÎ ´Ù¸¥ °æ¿ì
+                    //ë°›ì•„ì˜¨ ì •ë³´ì˜ ì´ë¯¸ì§€ê°€ í˜„ì¬ ì €ì¥ëœ ì´ë¯¸ì§€ì™€ ëª¨ë‘ ë‹¤ë¥¸ ê²½ìš°
                     if (j == cleanedItems.Count - 1 && !cleanedItems[j].itemPath.Equals(temp.itemPath))
                     {
                         cleanedItems.Add(temp);
@@ -57,7 +53,7 @@ public class PlayerReward : MonoBehaviour
             }
         }
         
-        //¾ÆÀÌÅÛ ÀÌ¹ÌÁö Ç¥Çö
+        //ì•„ì´í…œ ì´ë¯¸ì§€ í‘œí˜„
         for(int i = 0; i < cleanedItems.Count; i++)
         {
 
@@ -77,7 +73,7 @@ public class PlayerReward : MonoBehaviour
             }
         }
         Debug.Log(cleanedItems.Count);
-        //°ñµå ÀÌ¹ÌÁö Ç¥Çö
+        //ê³¨ë“œ ì´ë¯¸ì§€ í‘œí˜„
         initImgs.Add(Instantiate(itemImg, content.gameObject.transform));
         if(initImgs[initImgs.Count-1].TryGetComponent<Image>(out Image goldImg))
         {
@@ -94,7 +90,7 @@ public class PlayerReward : MonoBehaviour
             }
         }
 
-        //EXP ÀÌ¹ÌÁö Ç¥Çö
+        //EXP ì´ë¯¸ì§€ í‘œí˜„
         initImgs.Add(Instantiate(itemImg, content.gameObject.transform));
         if (initImgs[initImgs.Count - 1].TryGetComponent<Image>(out Image expImg))
         {
