@@ -33,65 +33,28 @@ public class MonsterBase : MonoBehaviour, ICharBase
         currentHP = monsterData.MonsterHP;
 
         Debug.Log(monsterData.MonsterName + " " + monsterData.MonsterHP);
-        /*temp = GameObject.FindGameObjectWithTag("Spawner");
-        if(temp.TryGetComponent<BattleController>(out BattleController tempc))
-        {
-           
-        }*/
     }
 
     virtual public void printData()
     {
         Debug.Log(monsterData.MonsterName + " " + monsterData.MonsterHP);
     }
-    private void OnMouseDown()
-    {
-        
-    }
 
     public void TakeDamage(int damage)
     {
-        /*if(gameObject.transform.parent.TryGetComponent<MonsterBase>(out MonsterBase monsterBase))
-        {
-            monsterBase.monsterData.MonsterHP -= damage;
-            if(monsterBase.monsterData.MonsterHP <= 0)
-            {
-                Debug.Log("¸ó½ºÅÍ »ç¸Á");
-                OnDie();
-            } else
-            {
-                Debug.Log("¸ó½ºÅÍ ÀÜ¿© HP: " + monsterBase.monsterData.MonsterHP);
-            }
-        }*/
+        
         currentHP -= damage;
         if (currentHP <= 0)
         {
-            Debug.Log("¸ó½ºÅÍ »ç¸Á");
+            Debug.Log("ëª¬ìŠ¤í„° ì‚¬ë§");
             StartCoroutine(OnDie());
 
         }
         else
         {
-            Debug.Log("¸ó½ºÅÍ ÀÜ¿© HP: " + currentHP);
+            Debug.Log("ëª¬ìŠ¤í„° ìž”ì—¬ HP: " + currentHP);
             BattleController.Instance.StartMonsterAttack();
-            /*switch (BattleController.Instance.monsterSpawnCount)
-            {
-                case 1:
-                    BattleController.Instance.StartMonsterAttack();
-                    break;
-                case 2:
-                    if (currentMonsterIndex == (int) MonsterLastIndex.LastIndexFromTwoSpawned)
-                    {
-                        BattleController.Instance.StartMonsterAttack();
-                    }
-                    break;
-                default:
-                    if (currentMonsterIndex == (int)MonsterLastIndex.LastIndexFromThreeSpawned)
-                    {
-                        BattleController.Instance.StartMonsterAttack();
-                    }
-                    break;
-            }*/
+            
         }
         
     }
@@ -108,7 +71,7 @@ public class MonsterBase : MonoBehaviour, ICharBase
 
     public IEnumerator OnDie()
     {
-        Debug.Log("OnDie ½ÇÇà");
+        Debug.Log("OnDie ì‹¤í–‰");
         yield return null;
         if(gameObject.TryGetComponent<SkeletonAnimation>(out SkeletonAnimation monsterAnim)){
             monsterAnim.loop = false;
@@ -134,46 +97,11 @@ public class MonsterBase : MonoBehaviour, ICharBase
     }
     public void RewardImgActive()
     {
-        //bool isActive = false;
 
         if(BattleController.Instance.monsterActiveCount == 0)
         {
             BattleController.Instance.playerRewardImg.gameObject.SetActive(true);
         }
-        /*
-        for(int i = 0; i < BattleController.Instance.monsterList.Count; i++)
-        {
-            if (BattleController.Instance.monsterList[i].activeSelf)
-            {
-                isActive = true;
-            }
-            //1 3 ÀÏ¶§ 
-            if(isActive && i == currentMonsterIndex)
-            {
-                switch (BattleController.Instance.monsterSpawnCount)
-                {
-                    case 1:
-                        BattleController.Instance.playerRewardImg.gameObject.SetActive(true);
-                        break;
-                    case 2:
-                        if (currentMonsterIndex == 3)
-                        {
-                            BattleController.Instance.playerRewardImg.gameObject.SetActive(true);
-                        }
-                        break;
-                    default:
-                        if (currentMonsterIndex == 4)
-                        {
-                            BattleController.Instance.playerRewardImg.gameObject.SetActive(true);
-                        }
-                        break;
-                }
-            } else if (isActive)
-            {
-                break;
-            }
-            
-        }*/
         
     }
 }
